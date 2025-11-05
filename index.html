@@ -18,6 +18,7 @@
             padding: 0.5rem 1rem;
             transition: all 0.3s ease;
             border-bottom: 1px solid var(--border-color);
+            box-sizing: border-box;
         }
 
         .nav-container {
@@ -26,6 +27,8 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .nav-glow h1 {
@@ -192,7 +195,7 @@
         /* Media queries pour la navigation responsive */
         @media (max-width: 768px) {
             .nav-glow {
-                padding: 0.5rem;
+                padding: 0.5rem 1rem;
             }
 
             .nav-glow h1 {
@@ -224,11 +227,17 @@
 
         @media (max-width: 480px) {
             .nav-container {
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
+                padding: 0 0.5rem;
+            }
+
+            .nav-glow {
+                padding: 0.5rem;
             }
 
             .nav-glow h1 {
                 font-size: 0.9rem;
+                margin-right: 0.5rem;
             }
 
             .hero-title {
@@ -239,18 +248,36 @@
                 font-size: 1rem;
             }
 
+            /* CORRECTION : Menu déroulant aligné à gauche */
             .dropdown-menu {
-                right: -50%;
-                transform: translateX(50%) translateY(-10px);
+                right: auto;
+                left: 0;
+                transform: translateY(-10px);
+                min-width: 180px;
             }
 
             .dropdown-menu.active {
-                transform: translateX(50%) translateY(0);
+                transform: translateY(0);
             }
 
             .gmail-button {
                 padding: 0.8rem 1.5rem;
                 font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .nav-glow h1 {
+                font-size: 0.8rem;
+            }
+            
+            .dropdown-toggle {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .dropdown-menu {
+                min-width: 160px;
             }
         }
 
