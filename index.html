@@ -4,27 +4,143 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio // Jack Willy Manéa Sosso Priso Essawê</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* STYLES EXISTANTS - TOUT GARDER SAUF LE DROPDOWN */
-        
-        /* SEULEMENT MODIFIER LE DROPDOWN */
+        /* VARIABLES ET RESET */
+        :root {
+            --main-bg: #0a0a14;
+            --card-bg: #151521;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0c0;
+            --accent-color: #05d9e8;
+            --border-color: #2a2a3a;
+        }
+
+        [data-theme="light"] {
+            --main-bg: #f0f0f5;
+            --card-bg: #ffffff;
+            --text-primary: #222222;
+            --text-secondary: #555555;
+            --accent-color: #e63946;
+            --border-color: #dddddd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--main-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* NAVIGATION */
+        .nav-glow {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--main-bg);
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        .nav-links .cyber-button {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .theme-switch-wrapper {
+            margin-left: 1rem;
+        }
+
+        /* MENU DÉROULANT - CENTRÉ */
+        .dropdown-container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dropdown {
+            position: relative;
+            display: none;
+        }
+
+        .dropdown-toggle {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.5rem 1.2rem;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-toggle:hover {
+            background: rgba(5, 217, 232, 0.1);
+        }
+
+        .dropdown-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-toggle.active i {
+            transform: rotate(180deg);
+        }
+
         .dropdown-menu {
             position: absolute;
             top: 100%;
-            left: 50% !important;
+            left: 50%;
             transform: translateX(-50%) translateY(-10px);
             background: var(--main-bg);
             border: 1px solid var(--accent-color);
             border-radius: 4px;
-            min-width: 220px; /* 200px + 10% */
+            min-width: 200px;
             margin-top: 0.5rem;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
             z-index: 1001;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .dropdown-menu.active {
@@ -33,15 +149,609 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* TOUT LE RESTE DU CODE EXISTANT RESTE IDENTIQUE */
+        .dropdown-menu .cyber-button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            border: none;
+            border-radius: 0;
+            margin: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+            background: transparent;
+        }
+
+        .dropdown-menu .cyber-button:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu .cyber-button:hover {
+            background: rgba(5, 217, 232, 0.1);
+        }
+
+        /* BOUTONS CYBERPUNK */
+        .cyber-button {
+            display: inline-block;
+            background: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-button:hover {
+            background: rgba(5, 217, 232, 0.1);
+            box-shadow: 0 0 10px rgba(5, 217, 232, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .cyber-button:active {
+            transform: translateY(0);
+        }
+
+        /* SECTION HERO */
+        .hero-section {
+            padding-top: 8rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(10, 10, 20, 0.9) 0%, rgba(21, 21, 33, 0.9) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(5, 217, 232, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(230, 57, 70, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            padding: 2rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(5, 217, 232, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-bottom: 2.5rem;
+            color: var(--text-secondary);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* SECTIONS GÉNÉRIQUES */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+            margin: 1rem auto;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        /* SECTION À PROPOS */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .profile-image {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(5, 217, 232, 0.3);
+        }
+
+        .about-text {
+            color: var(--text-secondary);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-info {
+            margin-top: 2rem;
+        }
+
+        .info-item {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .info-item strong {
+            min-width: 120px;
+            color: var(--text-primary);
+        }
+
+        /* SECTION COMPÉTENCES */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-category h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-item span {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 4px;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        /* SECTION PROJETS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(5, 217, 232, 0.1);
+            color: var(--accent-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid var(--accent-color);
+        }
+
+        .project-status {
+            margin-bottom: 1.5rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-completed {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-links .cyber-button {
+            flex: 1;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .project-note {
+            background: rgba(5, 217, 232, 0.1);
+            border: 1px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .project-note strong {
+            color: var(--accent-color);
+        }
+
+        /* SECTION CONTACT */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            width: 40px;
+            text-align: center;
+        }
+
+        .contact-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .contact-item p {
+            color: var(--text-secondary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: rgba(5, 217, 232, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(5, 217, 232, 0.3);
+        }
+
+        .contact-action {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .contact-action p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .gmail-button {
+            background: #EA4335;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(234, 67, 53, 0.3);
+        }
+
+        .gmail-button:hover {
+            background: #d33426;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(234, 67, 53, 0.4);
+        }
+
+        /* FOOTER */
+        .cyber-footer {
+            background: var(--card-bg);
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .cyber-footer p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* COMMUTATEUR DE THÈME */
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--card-bg);
+            border: 1px solid var(--accent-color);
+            transition: .4s;
+            border-radius: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: var(--accent-color);
+            transition: .4s;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .sun, .moon {
+            font-size: 14px;
+            z-index: 1;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .dropdown-container {
+                display: block;
+            }
+
+            .dropdown {
+                display: block;
+            }
+
+            .hero-section {
+                padding-top: 6rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-links {
+                flex-direction: column;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .dropdown-container {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-glow {
+                padding: 0.6rem 1rem;
+            }
+
+            .nav-title {
+                font-size: 1.1rem;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .gmail-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- NAVIGATION - CODE EXISTANT -->
+    <!-- Navigation -->
     <nav class="nav-glow">
         <div class="nav-container">
-            <h1>PORTFOLIO</h1>
+            <div class="nav-title">PORTFOLIO</div>
             
+            <!-- Menu déroulant centré pour mobile -->
+            <div class="dropdown-container">
+                <div class="dropdown">
+                    <button class="dropdown-toggle" id="dropdownToggle">
+                        Menu <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <a href="#accueil" class="cyber-button">Accueil</a>
+                        <a href="#apropos" class="cyber-button">À propos</a>
+                        <a href="#competences" class="cyber-button">Compétences</a>
+                        <a href="#projets" class="cyber-button">Projets</a>
+                        <a href="#contact" class="cyber-button">Contact</a>
+                        <a href="cv.html" class="cyber-button">CV</a>
+                        <div class="theme-switch-wrapper" style="padding: 0.5rem; display: flex; justify-content: center;">
+                            <div class="theme-switch">
+                                <input type="checkbox" id="theme-toggle-mobile">
+                                <label for="theme-toggle-mobile" class="slider">
+                                    <span class="sun">☀️</span>
+                                    <span class="moon">🌙</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Liens de navigation pour desktop -->
             <div class="nav-links">
                 <a href="#accueil" class="cyber-button">Accueil</a>
@@ -62,34 +772,10 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Menu déroulant pour mobile -->
-            <div class="dropdown">
-                <button class="dropdown-toggle" id="dropdownToggle">
-                    Menu <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="#accueil" class="cyber-button">Accueil</a>
-                    <a href="#apropos" class="cyber-button">À propos</a>
-                    <a href="#competences" class="cyber-button">Compétences</a>
-                    <a href="#projets" class="cyber-button">Projets</a>
-                    <a href="#contact" class="cyber-button">Contact</a>
-                    <a href="cv.html" class="cyber-button">CV</a>
-                    <div class="theme-switch-wrapper" style="padding: 0.5rem; display: flex; justify-content: center;">
-                        <div class="theme-switch">
-                            <input type="checkbox" id="theme-toggle-mobile">
-                            <label for="theme-toggle-mobile" class="slider">
-                                <span class="sun">☀️</span>
-                                <span class="moon">🌙</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </nav>
 
-    <!-- TOUT LE RESTE DU CODE RESTE IDENTIQUE -->
+    <!-- Section Hero -->
     <section id="accueil" class="hero-section">
         <div class="hero-content">
             <h1 class="hero-title">Jack Willy Manéa Sosso Priso Essawê</h1>
@@ -101,29 +787,235 @@
         </div>
     </section>
 
-    <!-- Les autres sections restent identiques -->
+    <!-- Section À propos -->
     <section id="apropos" class="about-section">
-        <!-- Contenu inchangé -->
+        <div class="container">
+            <h2 class="section-title">À propos de moi</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="images/photo-profil.jpg" alt="Photo de Jack Willy Manéa Sosso Priso Essawê" class="profile-image">
+                </div>
+                <div class="about-text">
+                    <p>Étudiant passionné en génie informatique avec une solide base en développement web et une curiosité insatiable pour les nouvelles technologies. Actuellement en niveau 2, je combine mes études avec une expérience professionnelle en communication digitale.</p>
+                    <p>Mon objectif est de devenir un développeur full-stack compétent, capable de créer des applications web innovantes et performantes tout en continuant à approfondir mes connaissances en cybersécurité.</p>
+                    <div class="about-info">
+                        <div class="info-item">
+                            <strong>Email:</strong>
+                            <span>Jsossopriso@gmail.com</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Téléphone:</strong>
+                            <span>+237 682841316</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Localisation:</strong>
+                            <span>Douala, Cameroun</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
+    <!-- Section Compétences -->
     <section id="competences" class="skills-section">
-        <!-- Contenu inchangé -->
+        <div class="container">
+            <h2 class="section-title">Mes compétences</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <div class="skill-item">
+                        <span>HTML/CSS</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>JavaScript</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 55%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Bootstrap</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Backend</h3>
+                    <div class="skill-item">
+                        <span>PHP</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>C</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>SQL</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 55%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Outils & Bases de données</h3>
+                    <div class="skill-item">
+                        <span>MySQL</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 55%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>phpMyAdmin</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Git</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
+    <!-- Section Projets -->
     <section id="projets" class="projects-section">
-        <!-- Contenu inchangé -->
+        <div class="container">
+            <h2 class="section-title">Mes projets</h2>
+            <div class="projects-grid">
+                <!-- Projet 1 - Cybershop -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="images/projet1.jpg" alt="Cybershop E-commerce" class="project-image">
+                        <div class="project-info">
+                            <h3 class="project-title">Cybershop - E-commerce</h3>
+                            <p class="project-description">Plateforme e-commerce complète avec système de gestion des produits, panier d'achat, interface d'administration et thème cyberpunk. Développé avec PHP, MySQL et Bootstrap.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">PHP</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Bootstrap</span>
+                            </div>
+                            <div class="project-status">
+                                <span class="status-badge status-completed">Complété</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://jigokunoryu-cybershop.infinityfreeapp.com" class="cyber-button" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> Voir la démo
+                                </a>
+                                <a href="https://github.com/Jigoku-No-Ryu/cybershop" class="cyber-button" target="_blank">
+                                    <i class="fab fa-github"></i> Code source
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 2 - OtakuNexus -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="images/projet2.jpg" alt="OtakuNexus Streaming" class="project-image">
+                        <div class="project-info">
+                            <h3 class="project-title">🎌 OtakuNexus 🎴</h3>
+                            <p class="project-description">Plateforme de streaming anime avec système de recherche, gestion des séries et épisodes, interface utilisateur optimisée. Support des formats HLS et lecture adaptive.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">PHP</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">HLS.js</span>
+                            </div>
+                            <div class="project-status">
+                                <span class="status-badge status-completed">Complété</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://jigokunoryu-otakunexus.infinityfreeapp.com" class="cyber-button" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> Voir la démo
+                                </a>
+                                <a href="https://github.com/Jigoku-No-Ryu/otakunexus" class="cyber-button" target="_blank">
+                                    <i class="fab fa-github"></i> Code source
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Note d'information -->
+            <div class="project-note">
+                <p><strong>Note :</strong> Les projets nécessitent un hébergement avec support PHP/MySQL pour fonctionner complètement. Les démos en ligne peuvent avoir des limitations fonctionnelles.</p>
+            </div>
+        </div>
     </section>
 
+    <!-- Section Contact -->
     <section id="contact" class="contact-section">
-        <!-- Contenu inchangé -->
+        <div class="container">
+            <h2 class="section-title">Me contacter</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>Jsossopriso@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Téléphone</h4>
+                            <p>+237 682841316</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Localisation</h4>
+                            <p>Douala, Cameroun</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/Jigoku-No-Ryu" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/jack-willy-manea-sosso-priso-essawe-627524397" class="social-link" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="contact-action">
+                    <p>Vous souhaitez me contacter directement ?</p>
+                    <a href="mailto:Jsossopriso@gmail.com" class="gmail-button">
+                        <i class="fab fa-google"></i> Envoyer un email via Gmail
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
 
+    <!-- Footer -->
     <footer class="cyber-footer">
-        <!-- Contenu inchangé -->
+        <div class="container">
+            <p>&copy; 2024 Jack Willy Manéa Sosso Priso Essawê. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="#accueil">Accueil</a>
+                <a href="#apropos">À propos</a>
+                <a href="#competences">Compétences</a>
+                <a href="#projets">Projets</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
     </footer>
 
-    <script src="js/script.js"></script>
-    
     <script>
         // Gestion du menu déroulant
         const dropdownToggle = document.getElementById('dropdownToggle');
@@ -137,13 +1029,19 @@
             
             themeToggleDesktop.addEventListener('change', function() {
                 themeToggleMobile.checked = this.checked;
+                document.body.setAttribute('data-theme', this.checked ? 'light' : 'dark');
             });
             
             themeToggleMobile.addEventListener('change', function() {
                 themeToggleDesktop.checked = this.checked;
-                themeToggleDesktop.dispatchEvent(new Event('change'));
+                document.body.setAttribute('data-theme', this.checked ? 'light' : 'dark');
             });
         }
+
+        // Gestion du thème
+        themeToggleDesktop.addEventListener('change', function() {
+            document.body.setAttribute('data-theme', this.checked ? 'light' : 'dark');
+        });
 
         dropdownToggle.addEventListener('click', (e) => {
             e.stopPropagation();
