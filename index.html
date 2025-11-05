@@ -5,117 +5,278 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio // Jack Willy Manéa Sosso Priso Essawê</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&famil
-y=Roboto:wght@300;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-
-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Styles pour la navigation responsive */
+        :root {
+            --main-bg: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent-color: #05d9e8;
+            --accent-secondary: #e63946;
+            --border-color: #1a1a1a;
+            --card-bg: #151515;
+        }
+
+        [data-theme="light"] {
+            --main-bg: #f5f5f5;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --accent-color: #e63946;
+            --accent-secondary: #05d9e8;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--main-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            color: var(--accent-color);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        /* Styles pour la navigation sticky */
         .nav-glow {
-            position: fixed;
+            position: sticky;
             top: 0;
             width: 100%;
             z-index: 1000;
             background: var(--main-bg);
-            padding: 0.5rem 1rem;
+            padding: 0.8rem 1rem;
             transition: all 0.3s ease;
             border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .nav-container {
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-between;
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
         }
-        .nav-container h1 { margin-right: auto; }
 
         .nav-glow h1 {
-            font-size: 1.2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
             margin: 0;
             white-space: nowrap;
+            color: var(--accent-color);
         }
 
         .nav-links {
             display: flex;
-            gap: 0.5rem;
+            gap: 1rem;
             align-items: center;
             flex-wrap: wrap;
-            justify-content: flex-end;
         }
 
-        .nav-links .cyber-button {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.8rem;
-            white-space: nowrap;
+        .cyber-button {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(5, 217, 232, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cyber-button:hover::before {
+            left: 100%;
+        }
+
+        .cyber-button:hover {
+            background: rgba(5, 217, 232, 0.1);
+            box-shadow: 0 0 10px rgba(5, 217, 232, 0.3);
+        }
+
+        [data-theme="light"] .cyber-button:hover {
+            background: rgba(230, 57, 70, 0.1);
+            box-shadow: 0 0 10px rgba(230, 57, 70, 0.3);
         }
 
         .theme-switch-wrapper {
             margin-left: 0.5rem;
         }
 
-        /* Menu déroulant pour mobile */
-        .dropdown {
+        .theme-switch {
             position: relative;
-            display: none;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
         }
 
-        .dropdown-toggle {
-            background: transparent;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 0.5rem 1rem;
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
             cursor: pointer;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            border-radius: 4px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #333;
+            border: 1px solid var(--accent-color);
+            transition: .4s;
+            border-radius: 34px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: space-between;
+            padding: 0 5px;
         }
 
-        .dropdown-toggle i {
-            transition: transform 0.3s ease;
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            z-index: 2;
         }
 
-        .dropdown-toggle.active i {
-            transform: rotate(180deg);
+        input:checked + .slider {
+            background-color: #f5f5f5;
         }
 
-        .dropdown-menu {
-            position: fixed;
-            top: 6rem;
-            left: 0;
-            background: var(--main-bg);
-            border: 1px solid var(--accent-color);
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .sun, .moon {
+            font-size: 14px;
+            z-index: 1;
+        }
+
+        /* Menu hamburger pour mobile */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+        }
+
+        .hamburger-menu span {
+            display: block;
+            height: 3px;
             width: 100%;
-            height: calc(100% - 6rem);
+            background-color: var(--accent-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Overlay pour le menu mobile */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.95);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(-100%);
             transition: all 0.3s ease;
-            z-index: 999;
         }
 
-        .dropdown-menu.active {
+        [data-theme="light"] .nav-overlay {
+            background-color: rgba(245, 245, 245, 0.95);
+        }
+
+        .nav-overlay.active {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0);
         }
 
-        .dropdown-menu .cyber-button {
-            display: block;
-            width: 100%;
-            text-align: left;
+        .nav-overlay .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .nav-overlay .cyber-button {
+            font-size: 1.2rem;
+            padding: 1rem 2rem;
+            width: 200px;
+        }
+
+        .nav-overlay .theme-switch-wrapper {
+            margin-top: 2rem;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--accent-color);
+            background: none;
             border: none;
-            border-radius: 0;
-            margin: 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .dropdown-menu .cyber-button:last-child {
-            border-bottom: none;
+            cursor: pointer;
         }
 
         /* Ajustements pour la section hero */
@@ -124,23 +285,32 @@ awesome/6.4.0/css/all.min.css">
             min-height: calc(100vh - 6rem);
             display: flex;
             align-items: center;
+            background: linear-gradient(135deg, rgba(5, 217, 232, 0.1) 0%, rgba(10, 10, 10, 0) 50%);
+        }
+
+        [data-theme="light"] .hero-section {
+            background: linear-gradient(135deg, rgba(230, 57, 70, 0.1) 0%, rgba(245, 245, 245, 0) 50%);
         }
 
         .hero-content {
             text-align: center;
             padding: 2rem 1rem;
+            width: 100%;
         }
 
         .hero-title {
+            font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.8rem, 4vw, 3rem);
             margin-bottom: 1rem;
             word-wrap: break-word;
             line-height: 1.2;
+            color: var(--accent-color);
         }
 
         .hero-subtitle {
             font-size: clamp(1rem, 2vw, 1.5rem);
             margin-bottom: 2rem;
+            color: var(--text-secondary);
         }
 
         .hero-buttons {
@@ -155,104 +325,205 @@ awesome/6.4.0/css/all.min.css">
             font-size: 0.9rem;
         }
 
-        /* Style pour le bouton Gmail */
-        .gmail-button {
-            background: #EA4335;
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 4px;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 500;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
+        /* Section À propos */
+        .about-section {
+            padding: 5rem 0;
+            background: var(--main-bg);
+        }
+
+        .about-content {
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 15px rgba(234, 67, 53, 0.3);
+            gap: 3rem;
         }
 
-        .gmail-button:hover {
-            background: #d33426;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(234, 67, 53, 0.4);
-        }
-
-        .contact-action {
+        .about-image {
+            flex: 1;
             text-align: center;
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(5, 217, 232, 0.3);
+        }
+
+        [data-theme="light"] .profile-image {
+            box-shadow: 0 0 20px rgba(230, 57, 70, 0.3);
+        }
+
+        .about-text {
+            flex: 2;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .about-info {
             margin-top: 2rem;
         }
 
-        .contact-action p {
+        .info-item {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .info-item strong {
+            min-width: 120px;
+            color: var(--accent-color);
+        }
+
+        /* Section Compétences */
+        .skills-section {
+            padding: 5rem 0;
+            background: var(--card-bg);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--main-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-category h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-color);
             margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-item span {
+            display: block;
+            margin-bottom: 0.5rem;
             color: var(--text-secondary);
-            font-size: 1.1rem;
         }
 
-        /* Media queries pour la navigation responsive */
-        @media (max-width: 768px) {
-            .nav-glow {
-                padding: 0.5rem;
-            }
-
-            .nav-glow h1 {
-                font-size: 1rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .dropdown {
-                display: block;
-            }
-
-            .hero-section {
-                padding-top: 5rem;
-                min-height: calc(100vh - 5rem);
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .hero-buttons .cyber-button {
-                width: 200px;
-            }
+        .skill-bar {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
         }
 
-        @media (max-width: 480px) {
-            .nav-container {
-                flex-wrap: wrap;
-            }
-
-            .nav-glow h1 {
-                font-size: 0.9rem;
-            }
-
-            .hero-title {
-                font-size: 1.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1rem;
-            }
-
-            .gmail-button {
-                padding: 0.8rem 1.5rem;
-                font-size: 1rem;
-            }
+        .skill-progress {
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
         }
 
-        /* Ajustements pour le contenu des projets */
+        /* Section Projets */
+        .projects-section {
+            padding: 5rem 0;
+            background: var(--main-bg);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
         .project-content {
             padding: 0;
             height: 100%;
             display: flex;
             flex-direction: column;
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .project-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-tag {
+            background: rgba(5, 217, 232, 0.1);
+            color: var(--accent-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid var(--accent-color);
+        }
+        
+        [data-theme="light"] .tech-tag {
+            background: rgba(230, 57, 70, 0.1);
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        .project-status {
+            margin-bottom: 1.5rem;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .status-completed {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
         }
         
         .project-links {
@@ -291,14 +562,212 @@ awesome/6.4.0/css/all.min.css">
         .project-note strong {
             color: var(--accent-color);
         }
-        
+
+        /* Section Contact */
+        .contact-section {
+            padding: 5rem 0;
+            background: var(--card-bg);
+        }
+
+        .contact-content {
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-right: 1rem;
+            margin-top: 0.2rem;
+        }
+
+        .contact-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--main-bg);
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--accent-color);
+        }
+
+        .social-link:hover {
+            background: var(--accent-color);
+            color: var(--main-bg);
+            transform: translateY(-3px);
+        }
+
+        .contact-action {
+            flex: 1;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .contact-action p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Style pour le bouton Gmail */
+        .gmail-button {
+            background: #EA4335;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(234, 67, 53, 0.3);
+        }
+
+        .gmail-button:hover {
+            background: #d33426;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(234, 67, 53, 0.4);
+        }
+
+        /* Footer */
+        .cyber-footer {
+            background: var(--main-bg);
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .cyber-footer p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Media queries pour la navigation responsive */
         @media (max-width: 768px) {
+            .nav-glow {
+                padding: 0.8rem 1rem;
+            }
+
+            .nav-glow h1 {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+
+            .hero-section {
+                padding-top: 5rem;
+                min-height: calc(100vh - 5rem);
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-buttons .cyber-button {
+                width: 200px;
+            }
+
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .info-item {
+                justify-content: center;
+            }
+
+            .contact-content {
+                flex-direction: column;
+            }
+
             .project-links {
                 flex-direction: column;
             }
             
             .project-links .cyber-button {
                 min-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .nav-glow h1 {
+                font-size: 1rem;
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .gmail-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -317,67 +786,80 @@ awesome/6.4.0/css/all.min.css">
                 <a href="#projets" class="cyber-button">Projets</a>
                 <a href="#contact" class="cyber-button">Contact</a>
                 <a href="cv.html" class="cyber-button">CV</a>
-            </div>
-
-            <!-- Menu déroulant pour mobile -->
-            <div class="dropdown">
-                <button class="dropdown-toggle" id="dropdownToggle" aria-label="Menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="#accueil" class="cyber-button">Accueil</a>
-                    <a href="#apropos" class="cyber-button">À propos</a>
-                    <a href="#competences" class="cyber-button">Compétences</a>
-                    <a href="#projets" class="cyber-button">Projets</a>
-                    <a href="#contact" class="cyber-button">Contact</a>
-                    <a href="cv.html" class="cyber-button">CV</a>
+                
+                <!-- Commutateur de thème -->
+                <div class="theme-switch-wrapper">
+                    <div class="theme-switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <label for="theme-toggle" class="slider">
+                            <span class="sun">☀️</span>
+                            <span class="moon">🌙</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
+            <!-- Menu hamburger pour mobile -->
+            <div class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Overlay pour le menu mobile -->
+    <div class="nav-overlay" id="navOverlay">
+        <button class="close-menu" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="nav-links">
+            <a href="#accueil" class="cyber-button">Accueil</a>
+            <a href="#apropos" class="cyber-button">À propos</a>
+            <a href="#competences" class="cyber-button">Compétences</a>
+            <a href="#projets" class="cyber-button">Projets</a>
+            <a href="#contact" class="cyber-button">Contact</a>
+            <a href="cv.html" class="cyber-button">CV</a>
+            
+            <!-- Commutateur de thème pour mobile -->
             <div class="theme-switch-wrapper">
                 <div class="theme-switch">
-                    <input type="checkbox" id="theme-toggle">
-                    <label for="theme-toggle" class="slider">
+                    <input type="checkbox" id="theme-toggle-mobile">
+                    <label for="theme-toggle-mobile" class="slider">
                         <span class="sun">☀️</span>
                         <span class="moon">🌙</span>
                     </label>
                 </div>
             </div>
         </div>
-    </nav>
-    
+    </div>
+
     <!-- Section Hero -->
     <section id="accueil" class="hero-section">
-        <div class="hero-content">
-            <h1 class="hero-title">Jack Willy Manéa Sosso Priso Essawê</h1>
-            <p class="hero-subtitle">Étudiant en Génie Informatique & 
-Développeur Full-Stack</p>
-            <div class="hero-buttons">
-                <a href="#projets" class="cyber-button">Voir mes projets</a>
-                <a href="PDF/CV_Jack_Willy.pdf" class="cyber-button" 
- download>Télécharger CV</a>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Jack Willy Manéa Sosso Priso Essawê</h1>
+                <p class="hero-subtitle">Étudiant en Génie Informatique & Développeur Full-Stack</p>
+                <div class="hero-buttons">
+                    <a href="#projets" class="cyber-button">Voir mes projets</a>
+                    <a href="PDF/CV_Jack_Willy.pdf" class="cyber-button" download>Télécharger CV</a>
+                </div>
             </div>
         </div>
     </section>
-    
+
     <!-- Section À propos -->
     <section id="apropos" class="about-section">
         <div class="container">
             <h2 class="section-title">À propos de moi</h2>
             <div class="about-content">
                 <div class="about-image">
-                    <img src="images/photo-profil.jpg" alt="Photo de Jack Willy 
-Manéa Sosso Priso Essawê" class="profile-image">
+                    <img src="images/photo-profil.jpg" alt="Photo de Jack Willy Manéa Sosso Priso Essawê" class="profile-image">
                 </div>
                 <div class="about-text">
-                    <p>Étudiant passionné en génie informatique avec une solide 
-base en développement web et une curiosité insatiable pour les nouvelles 
-technologies. Actuellement en niveau 2, je combine mes études avec une 
-expérience professionnelle en communication digitale.</p>
+                    <p>Étudiant passionné en génie informatique avec une solide base en développement web et une curiosité insatiable pour les nouvelles technologies. Actuellement en niveau 2, je combine mes études avec une expérience professionnelle en communication digitale.</p>
                     <br>
-                    <p>Mon objectif est de devenir un développeur full-stack 
-compétent, capable de créer des applications web innovantes et performantes tout
- en continuant à approfondir mes connaissances en cybersécurité.</p>
+                    <p>Mon objectif est de devenir un développeur full-stack compétent, capable de créer des applications web innovantes et performantes tout en continuant à approfondir mes connaissances en cybersécurité.</p>
                     <br>
                     <div class="about-info">
                         <div class="info-item">
@@ -397,6 +879,303 @@ compétent, capable de créer des applications web innovantes et performantes to
             </div>
         </div>
     </section>
-    <!-- (le reste du contenu reste inchangé) -->
+
+    <!-- Section Compétences -->
+    <section id="competences" class="skills-section">
+        <div class="container">
+            <h2 class="section-title">Mes compétences</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <div class="skill-item">
+                        <span>HTML/CSS</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>JavaScript</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 55%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Bootstrap</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Backend</h3>
+                    <div class="skill-item">
+                        <span>PHP</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>C</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>SQL</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 55%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Outils & Bases de données</h3>
+                    <div class="skill-item">
+                        <span>MySQL</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 55%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>phpMyAdmin</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Git</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Projets -->
+    <section id="projets" class="projects-section">
+        <div class="container">
+            <h2 class="section-title">Mes projets</h2>
+            <div class="projects-grid">
+                <!-- Projet 1 - Cybershop -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="images/projet1.jpg" alt="Cybershop E-commerce" class="project-image">
+                        <div class="project-info">
+                            <h3 class="project-title">Cybershop - E-commerce</h3>
+                            <p class="project-description">Plateforme e-commerce complète avec système de gestion des produits, panier d'achat, interface d'administration et thème cyberpunk. Développé avec PHP, MySQL et Bootstrap.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">PHP</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Bootstrap</span>
+                            </div>
+                            <div class="project-status">
+                                <span class="status-badge status-completed">Complété</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://jigokunoryu-cybershop.infinityfreeapp.com" class="cyber-button" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> Voir la démo
+                                </a>
+                                <a href="https://github.com/Jigoku-No-Ryu/cybershop" class="cyber-button" target="_blank">
+                                    <i class="fab fa-github"></i> Code source
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 2 - OtakuNexus -->
+                <div class="project-card">
+                    <div class="project-content">
+                        <img src="images/projet2.jpg" alt="OtakuNexus Streaming" class="project-image">
+                        <div class="project-info">
+                            <h3 class="project-title">🎌 OtakuNexus 🎴</h3>
+                            <p class="project-description">Plateforme de streaming anime avec système de recherche, gestion des séries et épisodes, interface utilisateur optimisée. Support des formats HLS et lecture adaptive.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">PHP</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">HLS.js</span>
+                            </div>
+                            <div class="project-status">
+                                <span class="status-badge status-completed">Complété</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://jigokunoryu-otakunexus.infinityfreeapp.com" class="cyber-button" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> Voir la démo
+                                </a>
+                                <a href="https://github.com/Jigoku-No-Ryu/otakunexus" class="cyber-button" target="_blank">
+                                    <i class="fab fa-github"></i> Code source
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Note d'information -->
+            <div class="project-note">
+                <p><strong>Note :</strong> Les projets nécessitent un hébergement avec support PHP/MySQL pour fonctionner complètement. Les démos en ligne peuvent avoir des limitations fonctionnelles.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Me contacter</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>Jsossopriso@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Téléphone</h4>
+                            <p>+237 682841316</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Localisation</h4>
+                            <p>Douala, Cameroun</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/Jigoku-No-Ryu" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/jack-willy-manea-sosso-priso-essawe-627524397" class="social-link" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="contact-action">
+                    <p>Vous souhaitez me contacter directement ?</p>
+                    <a href="mailto:Jsossopriso@gmail.com" class="gmail-button">
+                        <i class="fab fa-google"></i> Envoyer un email via Gmail
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="cyber-footer">
+        <div class="container">
+            <p>&copy; 2024 Jack Willy Manéa Sosso Priso Essawê. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="#accueil">Accueil</a>
+                <a href="#apropos">À propos</a>
+                <a href="#competences">Compétences</a>
+                <a href="#projets">Projets</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Gestion du thème
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        const body = document.body;
+
+        // Vérifier le thème préféré de l'utilisateur
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Appliquer le thème initial
+        if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !prefersDarkScheme.matches)) {
+            body.setAttribute('data-theme', 'light');
+            themeToggle.checked = false;
+            if (themeToggleMobile) themeToggleMobile.checked = false;
+        } else {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.checked = true;
+            if (themeToggleMobile) themeToggleMobile.checked = true;
+        }
+
+        // Gestion du changement de thème
+        function toggleTheme() {
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        themeToggle.addEventListener('change', toggleTheme);
+        if (themeToggleMobile) {
+            themeToggleMobile.addEventListener('change', toggleTheme);
+        }
+
+        // Gestion du menu hamburger
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const navOverlay = document.getElementById('navOverlay');
+        const closeMenu = document.getElementById('closeMenu');
+
+        hamburgerMenu.addEventListener('click', () => {
+            navOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Empêcher le défilement
+        });
+
+        closeMenu.addEventListener('click', () => {
+            navOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Rétablir le défilement
+        });
+
+        // Fermer le menu quand on clique sur un lien
+        document.querySelectorAll('.nav-overlay a').forEach(link => {
+            link.addEventListener('click', () => {
+                navOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Smooth scrolling pour les ancres
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animation des barres de compétences au défilement
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const skillBars = entry.target.querySelectorAll('.skill-progress');
+                    skillBars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 100);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        const skillsSection = document.querySelector('.skills-section');
+        if (skillsSection) {
+            observer.observe(skillsSection);
+        }
+    </script>
 </body>
 </html>
