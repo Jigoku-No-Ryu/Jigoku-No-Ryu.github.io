@@ -7,159 +7,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Styles spécifiques pour le menu déroulant centré avec décalage */
-        .dropdown-container {
-            position: absolute;
-            left: 53%; /* Décalage de 3% vers la droite */
-            transform: translateX(-50%);
-        }
-
-        .dropdown {
-            position: relative;
-            display: none;
-        }
-
-        .dropdown-toggle {
-            background: transparent;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 0.5rem 1.2rem;
-            cursor: pointer;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .dropdown-toggle:hover {
-            background: rgba(5, 217, 232, 0.1);
-        }
-
-        .dropdown-toggle i {
-            transition: transform 0.3s ease;
-        }
-
-        .dropdown-toggle.active i {
-            transform: rotate(180deg);
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(-10px);
-            background: var(--main-bg);
-            border: 1px solid var(--accent-color);
-            border-radius: 4px;
-            min-width: 200px;
-            margin-top: 0.5rem;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 1001;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        .dropdown-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .dropdown-menu .cyber-button {
-            display: block;
-            width: 100%;
-            text-align: left;
-            border: none;
-            border-radius: 0;
-            margin: 0;
-            border-bottom: 1px solid var(--border-color);
-            padding: 0.8rem 1rem;
-            font-size: 0.9rem;
-            background: transparent;
-        }
-
-        .dropdown-menu .cyber-button:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-menu .cyber-button:hover {
-            background: rgba(5, 217, 232, 0.1);
-        }
-
-        /* Style pour le bouton Gmail */
-        .gmail-button {
-            background: #EA4335;
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 4px;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 500;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 15px rgba(234, 67, 53, 0.3);
-        }
-
-        .gmail-button:hover {
-            background: #d33426;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(234, 67, 53, 0.4);
-        }
-
-        .contact-action {
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .contact-action p {
-            margin-bottom: 1.5rem;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .dropdown-container {
-                display: block;
-            }
-
-            .dropdown {
-                display: block;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .dropdown-container {
-                display: none;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .dropdown-toggle {
-                padding: 0.4rem 1rem;
-                font-size: 0.8rem;
-            }
-            
-            .gmail-button {
-                padding: 0.8rem 1.5rem;
-                font-size: 1rem;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -167,29 +14,18 @@
         <div class="nav-container">
             <h1>PORTFOLIO</h1>
             
-            <!-- Menu déroulant centré pour mobile -->
-            <div class="dropdown-container">
-                <div class="dropdown">
-                    <button class="dropdown-toggle" id="dropdownToggle">
-                        Menu <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="dropdown-menu" id="dropdownMenu">
-                        <a href="#accueil" class="cyber-button">Accueil</a>
-                        <a href="#apropos" class="cyber-button">À propos</a>
-                        <a href="#competences" class="cyber-button">Compétences</a>
-                        <a href="#projets" class="cyber-button">Projets</a>
-                        <a href="#contact" class="cyber-button">Contact</a>
-                        <a href="cv.html" class="cyber-button">CV</a>
-                        <div class="theme-switch-wrapper" style="padding: 0.5rem; display: flex; justify-content: center;">
-                            <div class="theme-switch">
-                                <input type="checkbox" id="theme-toggle-mobile">
-                                <label for="theme-toggle-mobile" class="slider">
-                                    <span class="sun">☀️</span>
-                                    <span class="moon">🌙</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Menu déroulant pour mobile -->
+            <div class="dropdown">
+                <button class="dropdown-toggle" id="dropdownToggle">
+                    Menu <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="#accueil" class="cyber-button">Accueil</a>
+                    <a href="#apropos" class="cyber-button">À propos</a>
+                    <a href="#competences" class="cyber-button">Compétences</a>
+                    <a href="#projets" class="cyber-button">Projets</a>
+                    <a href="#contact" class="cyber-button">Contact</a>
+                    <a href="cv.html" class="cyber-button">CV</a>
                 </div>
             </div>
 
@@ -461,26 +297,153 @@
 
     <script src="js/script.js"></script>
     
+    <style>
+        /* STYLES UNIQUEMENT POUR LE MENU DÉROULANT */
+        .dropdown {
+            position: relative;
+            display: none;
+        }
+
+        .dropdown-toggle {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.5rem 1.2rem;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .dropdown-toggle:hover {
+            background: rgba(5, 217, 232, 0.1);
+        }
+
+        .dropdown-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: var(--main-bg);
+            border: 1px solid var(--accent-color);
+            border-radius: 4px;
+            min-width: 200px;
+            margin-top: 0.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-menu .cyber-button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            border: none;
+            border-radius: 0;
+            margin: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+            background: transparent;
+        }
+
+        .dropdown-menu .cyber-button:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu .cyber-button:hover {
+            background: rgba(5, 217, 232, 0.1);
+        }
+
+        /* Style pour le bouton Gmail */
+        .gmail-button {
+            background: #EA4335;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(234, 67, 53, 0.3);
+        }
+
+        .gmail-button:hover {
+            background: #d33426;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(234, 67, 53, 0.4);
+        }
+
+        .contact-action {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .contact-action p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .dropdown {
+                display: block;
+                position: absolute;
+                left: 53%;
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dropdown-toggle {
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .gmail-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+    
     <script>
         // Gestion du menu déroulant
         const dropdownToggle = document.getElementById('dropdownToggle');
         const dropdownMenu = document.getElementById('dropdownMenu');
-        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
-        const themeToggleDesktop = document.getElementById('theme-toggle');
-
-        // Synchroniser les deux commutateurs de thème
-        if (themeToggleDesktop && themeToggleMobile) {
-            themeToggleMobile.checked = themeToggleDesktop.checked;
-            
-            themeToggleDesktop.addEventListener('change', function() {
-                themeToggleMobile.checked = this.checked;
-            });
-            
-            themeToggleMobile.addEventListener('change', function() {
-                themeToggleDesktop.checked = this.checked;
-                themeToggleDesktop.dispatchEvent(new Event('change'));
-            });
-        }
 
         dropdownToggle.addEventListener('click', (e) => {
             e.stopPropagation();
