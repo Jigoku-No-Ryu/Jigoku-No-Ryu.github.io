@@ -10,24 +10,23 @@
 </head>
 
 <body>
-    <!-- ======== NAVIGATION ======== -->
-    <nav class="nav-glow">
-        <div class="nav-header">
-            <h1>PORTFOLIO</h1>
+
+    <!-- ======== MENU DÉROULANT ======== -->
+    <header class="header">
+        <div class="header-container">
+            <h1 class="logo">PORTFOLIO</h1>
             <button class="menu-toggle" aria-label="Ouvrir le menu">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
 
-        <div class="nav-container" id="menu">
-            <div class="nav-links">
-                <a href="#accueil" class="cyber-button">Accueil</a>
-                <a href="#apropos" class="cyber-button">À propos</a>
-                <a href="#competences" class="cyber-button">Compétences</a>
-                <a href="#projets" class="cyber-button">Projets</a>
-                <a href="#contact" class="cyber-button">Contact</a>
-                <a href="cv.html" class="cyber-button">CV</a>
-            </div>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="#accueil" class="cyber-button">Accueil</a>
+            <a href="#apropos" class="cyber-button">À propos</a>
+            <a href="#competences" class="cyber-button">Compétences</a>
+            <a href="#projets" class="cyber-button">Projets</a>
+            <a href="#contact" class="cyber-button">Contact</a>
+            <a href="cv.html" class="cyber-button">CV</a>
 
             <div class="theme-switch-wrapper">
                 <div class="theme-switch">
@@ -39,9 +38,9 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- ======== HERO ======== -->
+    <!-- ======== SECTION ACCUEIL ======== -->
     <section id="accueil" class="hero-section">
         <div class="hero-content">
             <h1 class="hero-title">Jack Willy Manéa Sosso Priso Essawê</h1>
@@ -152,13 +151,22 @@
     <!-- ======== SCRIPT ======== -->
     <script src="js/script.js"></script>
     <script>
-        // Gestion du menu déroulant
         const toggle = document.querySelector('.menu-toggle');
-        const menu = document.querySelector('#menu');
+        const dropdownMenu = document.querySelector('#dropdownMenu');
+
         toggle.addEventListener('click', () => {
-            menu.classList.toggle('active');
+            dropdownMenu.classList.toggle('open');
             toggle.querySelector('i').classList.toggle('fa-bars');
             toggle.querySelector('i').classList.toggle('fa-xmark');
+        });
+
+        // Fermer le menu après un clic sur un lien
+        document.querySelectorAll('#dropdownMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                dropdownMenu.classList.remove('open');
+                toggle.querySelector('i').classList.add('fa-bars');
+                toggle.querySelector('i').classList.remove('fa-xmark');
+            });
         });
     </script>
 </body>
